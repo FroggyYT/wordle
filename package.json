@@ -1,0 +1,34 @@
+{
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "express": "^4.17.2",
+    "simple-jsx-react": "^1.0.4"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "name": "simple-jsx-react-starter",
+  "scripts": {
+    "start": "nodemon server.js",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "watch": "webpack --watch",
+    "dev": "concurrently --kill-others \"npm start\" \"npm run watch\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "autoprefixer": "^10.4.1",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "mini-css-extract-plugin": "^2.4.5",
+    "nodemon": "^2.0.15",
+    "postcss": "^8.4.5",
+    "postcss-loader": "^6.2.1",
+    "prettier": "^2.5.1",
+    "sass": "^1.45.2",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
