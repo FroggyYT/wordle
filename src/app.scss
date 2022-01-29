@@ -14,7 +14,7 @@ $unknown: lighten($wrong, 30);
 
 body {
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
   width: 100vw;
   height: 100vh;
   background-color: $blank;
