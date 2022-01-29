@@ -18,6 +18,11 @@ const App = () => {
         setTimeout(() => setPKey(""), 1);
     }
 
+    useEffect(() => {
+        console.log(lettersGuessed);
+        console.log(guessedState);
+    }, [lettersGuessed, guessedState]);
+
     return (
         <>
             <Board setLettersGuessed={setLettersGuessed} setGuessedState={setGuessedState} pKey={pKey}></Board>

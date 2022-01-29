@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import $ from "simple-jsx-react"
 
 import Tile from "./Tile.jsx"
+import Popup from "./Popup.jsx"
 
 const BLANK = "blank";
 const WRONG = "wrong";
@@ -33,6 +34,9 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 	const [word, setWord] = useState("");
 	const [enterPress, setEnterPress] = useState(0);
 
+	const [goodPopupVisible, setGoodPopupVisible] = useState(false);
+	const [badPopupVisible, setBadPopupVisible] = useState(false);
+
 	const boardContent = (i, content) => {
 		let tBoard = [...board];
 		tBoard[i].setContent(content);
@@ -53,7 +57,7 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 	}
 
 	const handle = ({ key }) => {
-		if (key == "Enter" || key == " " || key == "Backspace" || word.length >= COLUMNS) return;
+		if (key == "Enter" || key == " " || key == "Backspace") return;
 		setWord(w => w + key);
 	}
 
@@ -104,6 +108,9 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 
 		let row = enterPress - 1;
 
+		setLettersGuessed(letters => [...letters, ...curWord.split("")]);
+		setGuessedState(state => [...state, ...parsedData]);
+
 		parsedData.forEach((v, i) => {
 			setTimeout(() => {
 				boardState(i+row*COLUMNS, v);
@@ -112,25 +119,47 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 
 		if (parsedData.every(v => v == "right")) {
 			setTimeout(() => {
-				alert("h");
-			}, 1250);
-		}
+				
+				setGoodPopupVisible(true);
 
-		// if (wasCorrect) {
-		// 	for (let i = 0; i < COLUMNS; i++) {
-		// 		boardState(i+row*COLUMNS, RIGHT);
-		// 	}
-		// } else {
-		// 	for (let i = 0; i < COLUMNS; i++) {
-		// 		boardState(i+row*COLUMNS, WRONG);
-		// 	}
-		// }
+			}, 1250);
+		} else {
+			if (word.length >= ROWS*COLUMNS) {
+				(async () => {
+					let rawData = await fetch("/getWord");
+					let parsedData = await rawData.text();
+					setBadOg(parsedData);
+					setBadPopupVisible(true);
+				})();
+			}
+		}
 	}, [enterPress]);
 
+	const [badOg, setBadOg] = useState("");
+
+	const resetGame = async () => {
+		let rawData = await fetch("/newWord");
+		let parsedData = await rawData.text();
+
+		setGoodPopupVisible(false);
+		setBadPopupVisible(false);
+
+		setWord("");
+
+		board.forEach((v, i) => boardState(i, "blank"));
+		setLettersGuessed([]);
+		setGuessedState([]);
+		setEnterPress(0);
+	}
+
 	return (
-		<div id="board">
-			{board.map((v, i) => <Tile key={i} value={v.content} tileState={v.type}></Tile>)}
-		</div>
+		<>
+			<Popup callback={resetGame} prompt={`You guessed the word correctly!`} cText={"New Word"} canClose={false} active={goodPopupVisible}></Popup>
+			<Popup callback={resetGame} prompt={`You ran out of guesses!\nThe correct word was: ${badOg}`} cText={"New Word"} canClose={false} active={badPopupVisible}></Popup>
+			<div id="board">
+				{board.map((v, i) => <Tile key={i} value={v.content} tileState={v.type}></Tile>)}
+			</div>
+		</>
 	)
 };
 

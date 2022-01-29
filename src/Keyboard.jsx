@@ -15,6 +15,14 @@ const md = new MobileDetect(window.navigator.userAgent);
 const isMobile = md.mobile();
 
 const Keyboard = ({ parseKeyboard, lettersGuessed, guessedState }) => {
+    const getLetterClass = letter => {
+        let state = "";
+        lettersGuessed.forEach((v, i) => {
+            if (v.toUpperCase() == letter.toUpperCase()) state = guessedState[i] ?? "";
+        });
+        return state;
+    }
+
     return (
         <div id="keyboard">
             {ROWS.map((v, i) => {
@@ -24,7 +32,7 @@ const Keyboard = ({ parseKeyboard, lettersGuessed, guessedState }) => {
                     {v.map((_,j) => {
 
                         return (
-                            <button onClick={e => parseKeyboard(_)} className="key" key={j}>{_}</button>
+                            <button onClick={e => parseKeyboard(_)} className={`key ${getLetterClass(_)}`} key={j}>{_}</button>
                         );
                     })}
                 </div>

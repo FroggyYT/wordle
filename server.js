@@ -43,10 +43,19 @@ app.get("/checkWord", ({ query, cookies }, res) => {
         return (v == word.charAt(i) ? "right" : (WORD.match(word.charAt(i)) ? "spot" : "wrong"));
     });
     
-    if (word == WORD) WORD_MAP[cookies.uid || cookie_id] = newWord();
+    // if (word == WORD) WORD_MAP[cookies.uid || cookie_id] = newWord();
     console.log(word, WORD);
 
     res.send(mapped);
+});
+
+app.get("/getWord", ({ cookies }, res) => {
+    res.send(WORD_MAP[cookies.uid]);
+})
+
+app.get("/newWord", ({ cookies }, res) => {
+    WORD_MAP[cookies.uid] = newWord();
+    res.end();
 });
 
 app.listen(PORT, async () => {

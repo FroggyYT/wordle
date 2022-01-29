@@ -4,7 +4,7 @@ $right: #538d4e;
 
 $blank: #121212;
 
-$unknown: lighten($wrong, 10);
+$unknown: lighten($wrong, 30);
 
 * {
   font-family: monospace;
@@ -74,7 +74,7 @@ body {
   & > div {
     color: white;
     font-family: arial;
-    font-size: 5rem;
+    font-size: 5vmin;
     width: fit-content;
     height: fit-content;
   }
@@ -136,6 +136,8 @@ body {
   padding: 0.5rem;
   margin: 0.5rem;
 
+  transition: background-color 500ms;
+
   &:first-child {
     margin-left: 0;
   }
@@ -145,5 +147,71 @@ body {
 
   &:hover {
     cursor: pointer;
+  }
+
+  &.wrong {
+    background: $wrong;
+  }
+
+  &.spot {
+    background: $spot;
+  }
+
+  &.right {
+    background: $right;
+  }
+}
+
+.popup-background {
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  position: absolute;
+  inset: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  &.active {
+    display: flex;
+  }
+
+  &.inactive {
+    display: none;
+  }
+}
+
+.popup-foreground {
+  z-index: 20;
+  width: 90vmin;
+  height: fit-content;
+  max-width: 600px;
+  max-height: 600px;
+  background-color: $unknown;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem black;
+  padding: 2rem;
+}
+
+.popup-prompt {
+  font-family: arial;
+  font-size: 5vmin;
+  text-align: center;
+}
+
+.popup-buttons {
+  margin-top: 5rem;
+  float: right;
+
+  & > button {
+    font-size: 3vmin;
+    background-color: $unknown;
+    border: solid 2px $blank;
+    border-radius: 1rem;
+    padding: 0.5rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
