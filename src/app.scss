@@ -1,103 +1,149 @@
+$wrong: #3a3a3a;
+$spot: #b59f3b;
+$right: #538d4e;
+
+$blank: #121212;
+
+$unknown: lighten($wrong, 10);
+
 * {
-	font-family: monospace;
-	box-sizing: border-box;
-	outline: none;
+  font-family: monospace;
+  box-sizing: border-box;
+  outline: none;
 }
 
 body {
-	margin: 0;
-	overflow: hidden;
-	width: 100vw;
-	height: 100vh;
-	background-color: #444;
+  margin: 0;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-color: $blank;
 }
 
 #root {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  //   justify-content: center;
+  align-items: center;
 }
 
 #board {
-	width: 50rem;
-	height: 60rem;
-	background: #222;
-	display: grid;
-	gap: 1rem;
-	grid-template-rows: repeat(6, 1fr);
-	grid-template-columns: repeat(5, 1fr);
-	padding: 1rem;
+  height: 114vmin;
+  width: 95vmin;
+  max-height: 690px;
+  max-width: 575px;
+  background: $blank;
+  display: grid;
+  gap: 1rem;
+  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  padding: 1rem;
 }
 
-$blank: #222;
-$wrong: #444;
-$spot: #990;
-$right: #090;
-
 .tile {
-	perspective: 10000px;
+  perspective: 10000px;
 
-	& > .inner {
-		position: relative;
-		width: 100%;
-		height: 100%;
-		transform-style: preserve-3d;
-		transition: transform 1s;
-	}
+  & > .inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition-timing-function: linear;
+    transition: transform 500ms;
+  }
 
-	&.wrong,
-	&.spot,
-	&.right {
-		& > .inner {
-			transform: rotateX(-180deg);
-		}
-	}
+  &.wrong,
+  &.spot,
+  &.right {
+    & > .inner {
+      transform: rotateX(-180deg);
+    }
+  }
 }
 
 .back,
 .front {
-	backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    color: white;
+    font-family: arial;
+    font-size: 5rem;
+    width: fit-content;
+    height: fit-content;
+  }
 }
 
 .back {
-	transform: rotateX(-180deg);
-	border: solid 2px $wrong;
-	position: absolute;
-	inset: 0;
+  transform: rotateX(-180deg);
+  border: solid 2px $wrong;
+  position: absolute;
+  inset: 0;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  &.wrong {
+    background: $wrong;
+    border-color: $wrong;
+  }
 
-	& > div {
-		color: white;
-		font-family: arial;
-		font-size: 5rem;
-		width: fit-content;
-		height: fit-content;
-	}
+  &.spot {
+    background: $spot;
+    border-color: $spot;
+  }
 
-	&.wrong {
-		background: $wrong;
-		border-color: $wrong;
-	}
-
-	&.spot {
-		background: $spot;
-		border-color: $spot;
-	}
-
-	&.right {
-		background: $right;
-		border-color: $right;
-	}
+  &.right {
+    background: $right;
+    border-color: $right;
+  }
 }
 
 .front {
-	position: absolute;
-	inset: 0;
-	background: $blank;
-	border: solid 2px $wrong;
+  position: absolute;
+  inset: 0;
+  background: $blank;
+  border: solid 2px $wrong;
+}
+
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  width: 95vmin;
+  max-width: 575px;
+  padding: 1rem;
+
+  &.desktop {
+    display: none;
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.key {
+  border: none;
+  border-radius: 0.5rem;
+  background-color: $unknown;
+  color: white;
+  flex-grow: 1;
+  padding: 0.5rem;
+  margin: 0.5rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 }

@@ -12,21 +12,23 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
-  background-color: #444;
+  background-color: #121212;
 }
 
 #root {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
 #board {
-  width: 50rem;
-  height: 60rem;
-  background: #222;
+  height: 114vmin;
+  width: 95vmin;
+  max-height: 690px;
+  max-width: 575px;
+  background: #121212;
   display: grid;
   gap: 1rem;
   grid-template-rows: repeat(6, 1fr);
@@ -42,7 +44,8 @@ body {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 1s;
+  transition-timing-function: linear;
+  transition: transform 500ms;
 }
 .tile.wrong > .inner, .tile.spot > .inner, .tile.right > .inner {
   transform: rotateX(-180deg);
@@ -52,18 +55,12 @@ body {
 .front {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-}
-
-.back {
-  transform: rotateX(-180deg);
-  border: solid 2px #444;
-  position: absolute;
-  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.back > div {
+.back > div,
+.front > div {
   color: white;
   font-family: arial;
   font-size: 5rem;
@@ -74,22 +71,65 @@ body {
   height: -moz-fit-content;
   height: fit-content;
 }
+
+.back {
+  transform: rotateX(-180deg);
+  border: solid 2px #3a3a3a;
+  position: absolute;
+  inset: 0;
+}
 .back.wrong {
-  background: #444;
-  border-color: #444;
+  background: #3a3a3a;
+  border-color: #3a3a3a;
 }
 .back.spot {
-  background: #990;
-  border-color: #990;
+  background: #b59f3b;
+  border-color: #b59f3b;
 }
 .back.right {
-  background: #090;
-  border-color: #090;
+  background: #538d4e;
+  border-color: #538d4e;
 }
 
 .front {
   position: absolute;
   inset: 0;
-  background: #222;
-  border: solid 2px #444;
+  background: #121212;
+  border: solid 2px #3a3a3a;
+}
+
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  width: 95vmin;
+  max-width: 575px;
+  padding: 1rem;
+}
+#keyboard.desktop {
+  display: none;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.key {
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #545454;
+  color: white;
+  flex-grow: 1;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+.key:first-child {
+  margin-left: 0;
+}
+.key:last-child {
+  margin-right: 0;
+}
+.key:hover {
+  cursor: pointer;
 }
