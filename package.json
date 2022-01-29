@@ -13,11 +13,11 @@
   "description": "",
   "name": "simple-jsx-react-starter",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "node server.js",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "watch": "webpack --watch",
-    "start": "concurrently --kill-others \"npm start\" \"npm run watch\""
+    "start": "concurrently --kill-others \"npm dev\" \"npm run watch\""
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
