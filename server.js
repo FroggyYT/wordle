@@ -1,5 +1,6 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
+const { cookie } = require("express/lib/response");
 const app = express();
 
 const { v4 } = require("uuid");
@@ -42,7 +43,7 @@ app.get("/checkWord", ({ query, cookies }, res) => {
     });
     
     // if (word == WORD) WORD_MAP[cookies.uid || cookie_id] = newWord();
-    console.log(word, WORD);
+    console.log((cookie_id || cookies.uid), word, WORD);
 
     res.send(mapped);
 });
