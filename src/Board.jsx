@@ -62,7 +62,7 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 	}
 
 	const handleS = ({ key }) => {
-		if (key == "Backspace" && w.length % 5 != 0) {
+		if (key == "Backspace") {
 			setWord(w => {
 				let a = w.split("");
 				a.pop();
