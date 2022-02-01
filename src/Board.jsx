@@ -56,38 +56,75 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 		setBoard(tBoard);
 	}
 
-	const handle = ({ key }) => {
-		if (key == "Enter" || key == " " || key == "Backspace") return;
-		setWord(w => w + key);
-	}
-
-	const handleS = ({ key }) => {
-		if (key == "Backspace") {
-			setWord(w => {
-				let a = w.split("");
-				a.pop();
-				return a.join("");
-			});
-		}
-
-		if (key == "Enter") {
-			setWord(w => {
-				if (w.length % COLUMNS != 0) {
-					return w;
-				}
-				setEnterPress(e => e+1);
-				return w;
-			});
-		}
-	}
-
 	useEffect(() => {
+		const handle = ({ key }) => {
+			if (key == "Enter" || key == " " || key == "Backspace" || word.length >= (enterPress + 1) * COLUMNS) return;
+			setWord(w => w + key);
+		}
+	
+		const handleS = ({ key }) => {
+			if (key == "Backspace") {
+				setWord(w => {
+					let canBackspace = true;
+					if (w.length / (enterPress + 1) == COLUMNS * enterPress / (enterPress + 1) || w.length == 0) canBackspace = false;
+					if (!canBackspace) return w;
+					let a = w.split("");
+					a.pop();
+					return a.join("");
+				});
+			}
+	
+			if (key == "Enter") {
+				setWord(w => {
+					if (w.length % COLUMNS != 0) {
+						return w;
+					}
+					setEnterPress(e => e+1);
+					return w;
+				});
+			}
+		}
+
 		window.addEventListener("keypress", handle);
 		window.addEventListener("keydown", handleS);
-	}, []);
+
+		return () => {
+			window.removeEventListener("keypress", handle);
+			window.removeEventListener("keydown", handleS);
+		}
+	});
 
 	useEffect(() => {
 		if (pKey == "") return;
+
+		const handle = ({ key }) => {
+			if (key == "Enter" || key == " " || key == "Backspace" || word.length >= (enterPress + 1) * COLUMNS) return;
+			setWord(w => w + key);
+		}
+	
+		const handleS = ({ key }) => {
+			if (key == "Backspace") {
+				setWord(w => {
+					let canBackspace = true;
+					if (w.length / (enterPress + 1) == COLUMNS * enterPress / (enterPress + 1) || w.length == 0) canBackspace = false;
+					if (!canBackspace) return w;
+					let a = w.split("");
+					a.pop();
+					return a.join("");
+				});
+			}
+	
+			if (key == "Enter") {
+				setWord(w => {
+					if (w.length % COLUMNS != 0) {
+						return w;
+					}
+					setEnterPress(e => e+1);
+					return w;
+				});
+			}
+		}
+
 		console.log(pKey);
 		handle({key: pKey});
 		handleS({key: pKey});
