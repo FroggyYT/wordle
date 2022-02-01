@@ -198,3 +198,8 @@ img {
 .popup-buttons > button:hover {
   cursor: pointer;
 }
+
+.inst {
+  color: white;
+  font-size: 2rem;
+}

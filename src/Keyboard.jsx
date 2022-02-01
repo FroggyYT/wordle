@@ -38,6 +38,8 @@ const Keyboard = ({ parseKeyboard, lettersGuessed, guessedState }) => {
                 </div>
                 );
             })}
+            <br />
+            <center className="inst">Scroll down for instructions</center>
         </div>
     )
 }
