@@ -76,9 +76,7 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 	
 			if (key == "Enter") {
 				setWord(w => {
-					if (w.length % COLUMNS != 0) {
-						return w;
-					}
+					if (w.length != (enterPress + 1) * COLUMNS) return w;
 					setEnterPress(e => e+1);
 					return w;
 				});
@@ -116,9 +114,7 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 	
 			if (key == "Enter") {
 				setWord(w => {
-					if (w.length % COLUMNS != 0) {
-						return w;
-					}
+					if (w.length != (enterPress + 1) * COLUMNS) return w;
 					setEnterPress(e => e+1);
 					return w;
 				});
