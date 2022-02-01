@@ -3,6 +3,9 @@ const express = require("express");
 const { cookie } = require("express/lib/response");
 const app = express();
 
+const server = require("http").createServer(app);
+const io = require("socket.io")(server);
+
 const { v4 } = require("uuid");
 
 const PORT = process.env.PORT || 3000;
@@ -41,8 +44,7 @@ app.get("/checkWord", ({ query, cookies }, res) => {
     let mapped = WORD.split("").map((v, i) => {
         return (v == word.charAt(i) ? "right" : (WORD.match(word.charAt(i)) ? "spot" : "wrong"));
     });
-    
-    // if (word == WORD) WORD_MAP[cookies.uid || cookie_id] = newWord();
+
     console.log((cookie_id || cookies.uid), word, WORD);
 
     res.send(mapped);
@@ -57,6 +59,20 @@ app.get("/newWord", ({ cookies }, res) => {
     res.end();
 });
 
-app.listen(PORT, async () => {
+let ACTIVE_CONNECTIONS = 0;
+
+io.on("connection", s => {
+    ACTIVE_CONNECTIONS++;
+
+    s.on("getActive", () => {
+        s.emit("active", ACTIVE_CONNECTIONS);
+    })
+
+    s.on("disconnect", () => {
+        ACTIVE_CONNECTIONS--;
+    });
+});
+
+server.listen(PORT, async () => {
     console.log(`Server started on http://localhost${PORT != 80 ? ":"+PORT : ""}/`);
 });
