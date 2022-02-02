@@ -26,6 +26,19 @@ const newWord = () => {
 
 let WORD_MAP = {}
 
+app.get("/realWord", ({ query }, res) => {
+    let { word } = query;
+
+    let isWord = false;
+    WORD_LIST.forEach(v => {
+        if (v.toUpperCase() == word.toUpperCase()) {
+            isWord = true;
+        }
+    });
+
+    res.send(isWord);
+});
+
 app.get("/checkWord", ({ query, cookies }, res) => {
     let { word } = query;
 
