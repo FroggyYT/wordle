@@ -1,1 +1,1 @@
-https://luke-world.herokuapp.com/
+https://luke-wordle.herokuapp.com/
