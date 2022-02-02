@@ -15,6 +15,23 @@ body {
   background-color: #121212;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #878787;
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bababa;
+}
+
 img {
   width: 100vw;
   max-width: 600px;
