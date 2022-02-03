@@ -79,7 +79,20 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 					if (word.length != (enterPress + 1) * COLUMNS) return w;
 					let rawData = await fetch(`/realWord?w=${word.split("").splice(word.length-5, 5).join("")}`);
 					let parsedData = await rawData.json();
-					if (!parsedData) return;
+					let { status } = parsedData;
+					if (!status) {
+
+						for (let i = board.length - 1; i > board.length - 1 - COLUMNS; i--) {
+							boardState(i, "invalid");
+						}
+						setTimeout(() => {
+							for (let i = board.length - 1; i > board.length - 1 - COLUMNS; i--) {
+								boardState(i, "blank");
+							}
+						}, 250);
+
+						return;
+					}
 					setEnterPress(e => e+1);
 				})();
 			}
@@ -119,7 +132,20 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 					if (word.length != (enterPress + 1) * COLUMNS) return w;
 					let rawData = await fetch(`/realWord?w=${word.split("").splice(word.length-5, 5).join("")}`);
 					let parsedData = await rawData.json();
-					if (!parsedData) return;
+					let { status } = parsedData;
+					if (!status) {
+
+						for (let i = board.length - 1; i > board.length - 1 - COLUMNS; i--) {
+							boardState(i, "invalid");
+						}
+						setTimeout(() => {
+							for (let i = board.length - 1; i > board.length - 1 - COLUMNS; i--) {
+								boardState(i, "blank");
+							}
+						}, 250);
+
+						return;
+					}
 					setEnterPress(e => e+1);
 				})();
 			}

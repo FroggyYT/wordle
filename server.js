@@ -36,7 +36,7 @@ app.get("/realWord", ({ query }, res) => {
         }
     });
 
-    res.send(isWord);
+    res.send({status: isWord});
 });
 
 app.get("/checkWord", ({ query, cookies }, res) => {

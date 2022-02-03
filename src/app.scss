@@ -108,6 +108,8 @@ img {
   position: absolute;
   inset: 0;
 
+  transition: transform 250ms;
+
   &.wrong {
     background: $wrong;
     border-color: $wrong;
@@ -121,6 +123,10 @@ img {
   &.right {
     background: $right;
     border-color: $right;
+  }
+
+  &.invalid {
+    transform: scale(0.9);
   }
 }
 
