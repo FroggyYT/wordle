@@ -27,7 +27,7 @@ const newWord = () => {
 let WORD_MAP = {}
 
 app.get("/realWord", ({ query }, res) => {
-    let { word } = query;
+    let { w } = query;
 
     let isWord = false;
     WORD_LIST.forEach(v => {
@@ -36,7 +36,7 @@ app.get("/realWord", ({ query }, res) => {
         }
     });
 
-    res.send({status: isWord});
+    res.json({status: isWord});
 });
 
 app.get("/checkWord", ({ query, cookies }, res) => {
