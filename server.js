@@ -29,13 +29,6 @@ let WORD_MAP = {}
 app.get("/realWord", ({ query }, res) => {
     let { w } = query;
 
-    // let isWord = false;
-    // WORD_LIST.forEach(v => {
-    //     if (v.toUpperCase() == word.toUpperCase()) {
-    //         isWord = true;
-    //     }
-    // });
-
     let isWord = WORD_LIST.findIndex(v => v == w.toLowerCase()) != -1;
 
     res.json({status: isWord});
