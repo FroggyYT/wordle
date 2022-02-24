@@ -77,11 +77,11 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 			if (key == "Enter") {
 				(async () => {
 					if (word.length != (enterPress + 1) * COLUMNS) return;
-					setEnterPress(e => e+1);
 					let rawData = await fetch(`/realWord?w=${word.split("").splice(word.length-5, 5).join("")}`);
 					let parsedData = await rawData.json();
 					let { status } = parsedData;
 					if (!status) return;
+					setEnterPress(e => e+1);
 				})();
 			}
 		}
