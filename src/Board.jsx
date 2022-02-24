@@ -78,6 +78,10 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 				(async () => {
 					if (word.length != (enterPress + 1) * COLUMNS) return;
 					setEnterPress(e => e+1);
+					let rawData = await fetch(`/realWord?w=${word.split("").splice(word.length-5, 5).join("")}`);
+					let parsedData = await rawData.json();
+					let { status } = parsedData;
+					if (!status) return;
 				})();
 			}
 		}
@@ -117,19 +121,7 @@ const Board = ({ pKey, setLettersGuessed, setGuessedState }) => {
 					let rawData = await fetch(`/realWord?w=${word.split("").splice(word.length-5, 5).join("")}`);
 					let parsedData = await rawData.json();
 					let { status } = parsedData;
-					if (!status) {
-
-						for (let i = board.length - 1; i > board.length - 1 - COLUMNS; i--) {
-							boardState(i, "invalid");
-						}
-						setTimeout(() => {
-							for (let i = board.length - 1; i > board.length - 1 - COLUMNS; i--) {
-								boardState(i, "blank");
-							}
-						}, 250);
-
-						return;
-					}
+					if (!status) return;
 					setEnterPress(e => e+1);
 				})();
 			}
