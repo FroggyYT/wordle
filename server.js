@@ -52,7 +52,7 @@ app.get("/checkWord", ({ query, cookies }, res) => {
     let mapped = WORD.split("").map((v, i) => {
         let numOfOccurances = WORD.split(v).length - 1;
         let numOfOccurancesInGuess = word.split(v).length - 1;
-        return (v == word.charAt(i) ? "right" : (WORD.match(word.charAt(i) && numOfOccurances <= numOfOccurancesInGuess) ? "spot" : "wrong"));
+        return (v == word.charAt(i) ? "right" : (WORD.match(word.charAt(i) && numOfOccurances > numOfOccurancesInGuess) ? "spot" : "wrong"));
     });
 
     console.log((cookie_id || cookies.uid), word, WORD);
