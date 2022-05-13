@@ -50,7 +50,9 @@ app.get("/checkWord", ({ query, cookies }, res) => {
     let WORD = WORD_MAP[cookies.uid || cookie_id];
 
     let mapped = WORD.split("").map((v, i) => {
-        return (v == word.charAt(i) ? "right" : (WORD.match(word.charAt(i)) ? "spot" : "wrong"));
+        let numOfOccurances = WORD.split(v).length - 1;
+        let numOfOccurancesInGuess = word.split(v).length - 1;
+        return (v == word.charAt(i) ? "right" : (WORD.match(word.charAt(i) && numOfOccurances <= numOfOccurancesInGuess) ? "spot" : "wrong"));
     });
 
     console.log((cookie_id || cookies.uid), word, WORD);
